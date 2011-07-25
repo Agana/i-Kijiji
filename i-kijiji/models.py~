@@ -1,0 +1,21 @@
+from django.contrib import admin
+
+from django.db import models
+
+from django.db import models
+
+class TouristSite(models.Model):
+	name= models.CharField(max_length=200)
+	region= models.CharField(max_length=200)
+	town= models.CharField(max_length=200)
+	last_modified= models.DateTimeField()
+	SITE_CHOICES=(('hotel', 'Hotel'), ('park', 'Park'), ('forest_reserve', 'Forest Reserve'), ('wetland', 'Wetland'), ('heritage_site', 'Heritage Site'),('castle','Fort/Castle'),('museum', 'Museum'))
+	site_type=models.CharField(max_length=60, choices=SITE_CHOICES)
+	REGION_CHOICES=(('greater_accra', 'Greater Accra'), ('northern', 'Northern'), ('brong_ahafo', 'Brong Ahafo'),
+	('central', 'Central'), ('upper_east', 'Upper East'),
+	('upper_west','Upper West'),('ashanti', 'Ashanti'),('volta','Volta'),('western', 'Western'),('eastern', 'Eastern'))
+	region_name=models.CharField(max_length=60, choices=REGION_CHOICES)
+	def __unicode__(self):
+		return self.name
+
+admin.site.register(TouristSite)

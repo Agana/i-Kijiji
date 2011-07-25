@@ -1,0 +1,21 @@
+{% extends "tourist/index.html" %}
+<div class="header">Hi there</div>
+<p>Hi there!</p>
+
+{% block content %}
+
+<ul>{{ ashanti.get_region_display }}</ul>
+<a href="/toursit/northern"><ul>{{ ba.get_region_display }}</ul></a>
+<a href="/toursit/northern"><ul>{{ eastern.get_region_display }}</ul></a>
+<a href="/toursit/northern"><ul>{{ ga.get_region_display }}</ul></a>
+<a href="/toursit/northern"><ul>{{ northern.get_region_display }}</ul></a>
+<a href="/toursit/northern"><ul>{{ uer.get_region_display }}</ul></a>
+<a href="/toursit/northern"><ul>{{ uwr.get_region_display }}</ul></a>
+<a href="/toursit/northern"><ul>{{ volta.get_region_display }}</ul></a>
+
+
+
+{% endblock %}
+</p>
+</body>
+</html>

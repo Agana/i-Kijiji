@@ -1,0 +1,13 @@
+{% extends "tourist/index.html" %}
+{% block content %}
+
+{% for site in nr_detail %}
+
+<ul>{{ site.name }}</ul>
+<ul>{{ site.get_region_display }}</ul>
+<ul>{{ site.town }}</ul>
+<ul>{{ site.last_modified }}</ul>
+
+
+{% endfor %}
+{% endblock %}

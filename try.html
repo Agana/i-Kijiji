@@ -1,0 +1,40 @@
+<form name="Menu" method="post" action="/MyFinalProject/confirm/{{com.id}}">
+<table>
+{% for item in menuItems %}
+<tr><td>
+<select class="dropdown" name="item{{item.id}}">
+<option value="0" default>0</option>
+<option value="1">1</option>
+<option value="2">2</option>
+<option value="3">3</option>
+<option value="other">other</option>
+</select>
+</td><td>{{item.name}}(s)</td><td>GHC {{item.price}}</td>
+</tr>
+{% endfor %}
+<tr><td colspan="3">Phone Number:<input type="text" name="tel" size="10"></td></tr>
+</table>
+<input type="submit" value="Order">
+</form>
+
+<form method="post" action="">
+{% for detail in orders %}
+<h><b><i><hr>New Order</hr></i></b></h></br>
+<h>The customer with telephone number <b>0{{detail.phonenumber}}</b> has ordered for the following menu items:</h>
+<ul>
+
+<div><b>Amount</b> :{{ detail.total }}</div>
+<div><b>Order:{{ detail.placedorder }}</div>
+              <div><b>Date</b> :{{ detail.created }}</div>
+{% if detail.ispaid %}
+<a class="mHomeFeaturesItem" name="" href="/MyFinalProject/restaurant/{{comp_id}}/check_{{detail.id}}=False">
+<div><b>Paid</b> :{{ detail.ispaid }}<input type="checkbox" checked="yes" name="check"></div>
+{% else %}
+<a class="mHomeFeaturesItem" name="" href="/MyFinalProject/restaurant/{{comp_id}}/check_{{detail.id}}=True">
+<div><b>Paid</b> :{{ detail.ispaid }}<input type="checkbox" name="check"></div>
+{% endif %}
+</a>
+</ul>
+</br>
+{% endfor %}
+</form>

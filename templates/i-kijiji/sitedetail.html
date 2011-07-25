@@ -1,0 +1,74 @@
+{% extends "i-kijiji/index.html" %}
+{% block content %}
+<p><table border="1" align="center">
+<tr>
+<td><ul>
+<p>{{ site_detail.name }}</p>
+<p>{{ site_detail.get_region_display }}</p>
+<p>{{ site_detail.town }}</p>
+<p>{{ site_detail.last_modified }}</p>
+</ul></td>
+<td width="450" height="400">
+<div id="map" align ="center"><iframe width="425" height="350" frameborder="1" scrolling="no" marginheight="0" marginwidth="0" src="http://maps.google.com/maps?q={{ site.name }}+{{ site.town }}+{{ site.country }}&amp;hq={{ site.name }}+{{ site.town }}+{{ site.country }}&amp;output=embed"></iframe><br /><small><a href="http://maps.google.com/maps?f=q&amp;source=embed&amp;hl=en&amp;q={{ site.name }}+{{ site.town }}+{{ site.country }}&amp;&amp;hq={{ site.name }}+{{ site.town }}+{{ site.country }}&amp;style="color:#0000FF;text-align:left"><p>View Larger Map</p></a></small>
+</div>
+</td>
+
+<td width="300" height="400">
+<p align="center"><b>Write a Review</b></p>
+<p><div align ="center"><form method='post' action="">
+{{ form }}
+<script typ="text/javascript">
+function saythanks()
+{
+alert ("Thanks for the Review, journeymaker!");
+}
+</script>
+<input type='submit' name='Submit' onclick="saythanks()">
+</form></div></p>
+</td>
+</td>
+
+</table></p>
+
+<!--author's facebook image-->
+
+<!-- Load FB Login -->
+
+<script src="http://connect.facebook.net/en_US/all.js"></script>
+      <script>
+         FB.init({ 
+            appId:'131672516919597', cookie:true, 
+            status:true, xfbml:true 
+         });
+      </script>
+
+<!-- Now the image -->
+
+<script src="http://connect.facebook.net/en_US/all.js">
+      </script>
+      <script>
+         FB.init({ 
+            appId:'131672516919597', cookie:true, 
+            status:true, xfbml:true 
+         });
+         FB.api('/me', function(user) {
+           if(user != null) {
+              var image = document.getElementById('image');
+              image.src = 'https://graph.facebook.com/' + user.id + '/picture';
+              var name = document.getElementById('name');
+              name.innerHTML = user.name
+           }
+         });
+       </script>
+	<div align="left">
+           
+           
+
+<br><br><br><br><br>
+{% for item in review_items %}
+<ul><b>Author:</b><i id="name"></i></b></ul>
+<ul><img id="image" align="left"/>{{ item.review_body }}</ul>
+
+{% endfor %}</p>
+
+{% endblock %}

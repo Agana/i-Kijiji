@@ -1,0 +1,15 @@
+{% extends "tourist/index.html" %}
+<div class="header">Hi there</div>
+<p>Hi there!</p>
+
+{% block content %}
+{% for site in northern_list %}
+
+<a href="/tourist/ashanti"><ul><li>{{ site.name }}</li></ul></a>
+
+{% endfor %}
+
+{% endblock %}
+</p>
+</body>
+</html>

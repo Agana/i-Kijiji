@@ -1,0 +1,11 @@
+{% extends "tourist/index.html" %}
+
+
+{% block content %}
+{% for site in ba_list %}
+
+<a href="/i-kijiji/sitedetail/{{ site.id }}/"><ul>{{ site.name }}</ul></a>
+
+{% endfor %}
+{% endblock %}
+

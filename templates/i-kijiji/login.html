@@ -1,0 +1,26 @@
+{% extends "i-kijiji/index.html" %}
+ {% block content %}
+<h1>i-Kijiji</h1>
+
+<!-- Load FB JavaScript SDK -->
+
+<script src="http://connect.facebook.net/en_US/all.js"></script>
+      <script>
+         FB.init({ 
+            appId:'131672516919597', cookie:true, 
+            status:true, xfbml:true 
+         });
+      </script>
+
+<!-- Load FB Login -->
+
+<script src="http://connect.facebook.net/en_US/all.js"></script>
+      <script>
+         FB.init({ 
+            appId:'131672516919597', cookie:true, 
+            status:true, xfbml:true 
+         });
+      </script>
+<fb:login-button perms="email,user_checkins">Login with Facebook</fb:login-button>
+
+{% endblock %}

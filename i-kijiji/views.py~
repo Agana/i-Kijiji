@@ -1,0 +1,68 @@
+from django.template import Context, loader
+from django.http import HttpResponse
+from models import *
+from django.template import Context, loader
+from django import forms
+from django.forms import ModelForm
+from django.views.decorators.csrf import csrf_exempt
+from django.http import HttpResponseRedirect
+from django.shortcuts import render_to_response
+from django.core.mail import send_mail
+
+
+class SiteForm(ModelForm):
+	class Meta:
+		model=TouristSite
+
+def site_list(request, limit=15):
+	site_list=TouristSite.objects.all()
+	type_hotel = TouristSite(site_type='Hotel')
+	type_park = TouristSite(site_type='Park')
+	type_forest_reserve = TouristSite(site_type='Forest Reserve')
+	type_wetland = TouristSite(site_type='Wetland')
+	type_heritage_site = TouristSite(site_type='Heritage Site')
+	type_castle = TouristSite(site_type='Fort/Castle')
+	type_museum = TouristSite(site_type='Museum')
+	
+	t = loader.get_template('tourist/selectsite.html')
+	c = Context({'site_list':site_list,'user':str(request.user), 'type_hotel':type_hotel, 'type_park':type_park, 		'type_forest_reserve':type_forest_reserve, 'type_wetland':type_wetland, 'type_heritage_site':type_heritage_site, 'type_castle':type_castle, 		'type_museum':type_museum})
+	return HttpResponse(t.render(c))
+
+def region_list(request, limit=15):
+	region_list=TouristSite.objects.all()
+	northern= TouristSite(region='Northern')
+	western = TouristSite(region='Western')
+	uer = TouristSite(region='Upper East Region')
+	uwr = TouristSite(region='Upper West Region')
+	central = TouristSite(region='Central')
+	eastern = TouristSite(region='Eastern')
+	ga = TouristSite(region='Greater Accra')
+	ashanti = TouristSite(region='Ashanti')
+	ba = TouristSite(region='Brong Ahafo')
+	volta = TouristSite(region='Volta Region')
+	
+	t = loader.get_template('tourist/selectsite.html')
+	c = Context({'region_list':region_list,'user':str(request.user), 'northern':northern, 'western':western, 'uer':uer, 'uwr':uwr, 'central':central, 'eastern':eastern, 'western':western
+'ga':ga, 'ashanti':ashanti, 'ba':ba, 'volta':volta})
+	return HttpResponse(t.render(c))
+
+
+@csrf_exempt
+def site_choice_form(request, limit=15):
+	site_choice_myform= TouristSite.objects.all().order_by('-name')
+	if request.method == 'POST':
+		form = SiteForm(request.POST)
+		if form.is_valid():
+			form.save()
+			#MyDonate.objects.create(first_name='first_name',last_name='last_name', country='country', state='state', city='city', phone='0244', confirm_code='confirm_code')
+			return render_to_response('tourist/result.html', {'request':request, 'site_choice_myform':site_choice_myform})  
+	else:
+		form = SiteForm()
+	return render_to_response('tourist/selectsite.html', {'form': form.as_p(), 'request':request, 'site_choice_myform':site_choice_myform})
+
+
+
+def index(request):
+	t = loader.get_template('tourist/index.html')
+	c = Context({'site_list':site_list,'user':str(request.user)})
+	return HttpResponse(t.render(c))
