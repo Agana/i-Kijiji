@@ -1,0 +1,14 @@
+{% extends "i-kijiji/index.html" %}
+<div class="header">Hi there</div>
+<p>Hi there!</p>
+
+{% block content %}
+{% for site in v_central_list %}
+
+<a href="/i-kijiji/villagedetail/{{ site.id }}/"><ul>{{ site.v_name }}</ul></a>
+
+{% endfor %}
+{% endblock %}
+</p>
+</body>
+</html>

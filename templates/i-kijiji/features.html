@@ -1,0 +1,7 @@
+{% extends "i-kijiji/index.html" %}
+{% block content %}
+hi there
+{% for i in feature_list %}
+<ul>{{ i.v_name }}</ul>
+{% endfor %}
+{% endblock %}

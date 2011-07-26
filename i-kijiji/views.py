@@ -23,6 +23,70 @@ def site_list(request, limit=15):
 	c = Context({'site_list':site_list,'user':str(request.user), 'type_hotel':type_hotel, 'type_park':type_park, 		'type_forest_reserve':type_forest_reserve, 'type_wetland':type_wetland, 'type_heritage_site':type_heritage_site, 'type_castle':type_castle, 		'type_museum':type_museum})
 	return HttpResponse(t.render(c))
 
+# For Villages
+
+@csrf_exempt
+def v_region_list(request, limit=15):
+	v_region_list=MyVillage.objects.all()
+	northern= MyVillage(v_region='Northern')
+	western = MyVillage(v_region='Western')
+	uer = MyVillage(v_region='Upper East Region')
+	uwr = MyVillage(v_region='Upper West Region')
+	central = MyVillage(v_region='Central')
+	eastern = MyVillage(v_region='Eastern')
+	ga = MyVillage(v_region='Greater Accra')
+	ashanti = MyVillage(v_region='Ashanti')
+	ba = MyVillage(v_region='Brong Ahafo')
+	volta = MyVillage(v_region='Volta Region')
+	
+	t = loader.get_template('i-kijiji/selectvillage.html')
+	c = Context({'v_region_list':v_region_list,'user':str(request.user), 'northern':northern, 'western':western, 'uer':uer, 'uwr':uwr, 'central':central, 'eastern':eastern, 'western':western,
+	'ga':ga, 'ashanti':ashanti, 'ba':ba, 'volta':volta})
+	return HttpResponse(t.render(c))
+
+
+def v_northern_list(request, limit=15):
+	v_northern_list=MyVillage.objects.filter(v_region='northern').order_by('-v_updated')
+	return render_to_response('i-kijiji/v_northern.html', {'v_northern_list': v_northern_list})
+
+def v_uer_list(request, limit=15):
+	v_uer_list=MyVillage.objects.filter(v_region='upper_east').order_by('-v_updated')
+	return render_to_response('i-kijiji/v_uer.html', {'v_uer_list': v_uer_list})
+
+def v_uwr_list(request, limit=15):
+	v_uwr_list=MyVillage.objects.filter(v_region='upper_west').order_by('-v_updated')
+	return render_to_response('i-kijiji/v_uwr.html', {'v_uwr_list': v_uwr_list})
+
+def v_volta_list(request, limit=15):
+	v_volta_list=MyVillage.objects.filter(v_region='volta').order_by('-v_updated')
+	return render_to_response('i-kijiji/v_volta.html', {'v_volta_list': v_volta_list})
+
+def v_central_list(request, limit=15):
+	v_central_list=MyVillage.objects.filter(v_region='central').order_by('-v_updated')
+	return render_to_response('i-kijiji/v_central.html', {'v_central_list': v_central_list})
+
+def v_ga_list(request, limit=15):
+	v_ga_list=MyVillage.objects.filter(v_region='greater_accra').order_by('-v_updated')
+	return render_to_response('i-kijiji/v_ga.html', {'v_ga_list': v_ga_list})
+
+def v_ba_list(request, limit=15):
+	v_ba_list=MyVillage.objects.filter(v_region='brong_ahafo').order_by('-v_updated')
+	return render_to_response('i-kijiji/v_ba.html', {'v_ba_list': v_ba_list})
+
+def v_eastern_list(request, limit=15):
+	v_eastern_list=MyVillage.objects.filter(v_region='eastern').order_by('-v_updated')
+	return render_to_response('i-kijiji/v_eastern.html', {'v_eastern_list': v_eastern_list})
+
+def v_western_list(request, limit=15):
+	v_western_list=MyVillage.objects.filter(v_region='western').order_by('-v_updated')
+	return render_to_response('i-kijiji/v_western.html', {'v_western_list': v_western_list})
+
+def v_ashanti_list(request, limit=15):
+	v_ashanti_list=MyVillage.objects.filter(v_region='ashanti').order_by('-v_updated')
+	return render_to_response('i-kijiji/v_ashanti.html', {'v_ashanti_list': v_ashanti_list})
+
+# For Tourist Sites
+
 @csrf_exempt
 def region_list(request, limit=15):
 	region_list=TouristSite.objects.all()
@@ -132,7 +196,40 @@ def site_detail(request, id, showReviews=False):
 		
 		form = SiteForm()
 
-	return render_to_response('i-kijiji/sitedetail.html', {'request':request, 'site_detail':site_detail, 'site_detail_iterable':site_detail_iterable, 'review_items':review_items, 'form':form.as_p()})
+	feature_list=MyVillage.objects.all().order_by('?')[:5]
+	top_villages=MyVillage.objects.all().order_by('-v_updated')[:5]
+
+	return render_to_response('i-kijiji/sitedetail.html', {'request':request, 'site_detail':site_detail, 'site_detail_iterable':site_detail_iterable, 'review_items':review_items, 'form':form.as_p(), 'feature_list':feature_list, 'top_villages':top_villages})
+
+
+@csrf_exempt
+def village_detail(request, id, showReviews=False):
+	village_detail=MyVillage.objects.get(id=id)
+	village_detail_iterable=MyVillage.objects.filter(id=id)
+	v_review_items=Review.objects.filter(review_title__id=id).order_by('-review_updated')
+	if showReviews:
+		
+		v_reviews = Review.objects.filter(review_title__id=id)
+		print reviews
+	if request.method == 'POST':
+		v_review = Review(review_title=village_detail)
+		form = SiteForm(request.POST, instance=review)
+		if request.user.is_authenticated:
+			v_review.review_author = request.user.username
+		if form.is_valid():
+			form.save()
+			print form
+			return HttpResponseRedirect(request.path)
+	else:
+		
+		form = SiteForm()
+
+	feature_list=MyVillage.objects.all().order_by('?')[:5]
+	top_villages=MyVillage.objects.all().order_by('-v_updated')[:5]
+
+	return render_to_response('i-kijiji/villagedetail.html', {'request':request, 'village_detail':village_detail, 'village_detail_iterable':village_detail_iterable, 'v_review_items':v_review_items, 'form':form.as_p(), 'feature_list':feature_list, 'top_villages':top_villages})
+
+
 
 @csrf_exempt
 def my_village(request, limit=15):
@@ -174,6 +271,16 @@ def detail_review(request, id, limit=15, showReviews=False):
 
 	return render_to_response('i-kijiji/reviewsite.html', {'editreview':editreview, 'request':request, 'site_detail': site_detail, 'user':str(request.user)})
 
+def feature_list(id):
+	feature_list=MyVillage.objects.all().order_by('?')[:5]
+	#v_features = [feature_list][:5]
+	return render_to_response('i-kijiji/features.html', {'feature_list':feature_list})
+
+
+def feature_list(id):
+	#feature_list=MyVillage.objects.all().order_by('?')[:5]
+	#v_features = [feature_list][:5]
+	return render_to_response('i-kijiji/features.html', {'feature_list':feature_list})
 
 def index(request):
 	t = loader.get_template('i-kijiji/index.html')

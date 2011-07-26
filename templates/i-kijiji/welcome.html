@@ -4,6 +4,20 @@
 <p><h2>Welcome to i-Kijiji</h2></p>
 <p>Your village on the web.</p>
 <a href ="/i-kijiji/login">Login</a> or <a href="/i-kijiji/register">Register</a><p>
-
-
+<p><table border="1" align="center">
+<tr>
+<td><ul>
+<p>{{ my_village.v_name }}</p>
+<p>{{ my_village.get_v_region_display }}</p>
+<p>{{ my_village.nearto }}</p>
+<p>{{ my_village.v_updated }}</p>
+</ul></td>
+<td width="450" height="400">
+<div id="map" align ="center"><iframe width="425" height="350" frameborder="1" scrolling="no" marginheight="0" marginwidth="0" src="http://maps.google.com/maps?q=ghana&amp;hq=ghana&amp;output=embed"></iframe><br /><small><a href="http://maps.google.com/maps?f=q&amp;source=embed&amp;hl=en&amp;q=ghana&amp;&amp;hq=ghana&amp;style="color:#0000FF;text-align:left"><p>View Larger Map</p></a></small>
+</div>
+</td>
+</tr>
+</table></p>
+<a href ="/i-kijiji/selectvillage"><p>Go to Villages</p></a>
+<a href ="/i-kijiji/selectsite"><p>See Attractions</p></a>
 {% endblock %}

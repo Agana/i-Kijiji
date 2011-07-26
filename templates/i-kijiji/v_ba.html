@@ -1,0 +1,11 @@
+{% extends "i-kijiji/index.html" %}
+
+
+{% block content %}
+{% for site in v_ba_list %}
+
+<a href="/i-kijiji/villagedetail/{{ site.id }}/"><ul>{{ site.v_name }}</ul></a>
+
+{% endfor %}
+{% endblock %}
+

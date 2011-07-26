@@ -34,12 +34,12 @@ class MyVillage(models.Model):
 	v_name= models.CharField('Village name', max_length=30)
 	v_region= models.CharField('Region', max_length=30)
 	v_nearto= models.CharField('Nearest city/town', max_length=30)
-	v_attraction1= models.CharField('Attraction 1',max_length=50)
-	v_attraction2= models.CharField('Attraction 2',max_length=50)
-	v_attraction3= models.CharField('Attraction 3',max_length=50)
-	v_attraction4= models.CharField('Attraction 4',max_length=50)
-	v_attraction5= models.CharField('Attraction 5',max_length=50)
-	v_review= models.TextField('Village Review')
+	v_attraction1= models.CharField('Attraction 1', blank=True, max_length=50)
+	v_attraction2= models.CharField('Attraction 2', blank=True, max_length=50)
+	v_attraction3= models.CharField('Attraction 3', blank=True, max_length=50)
+	v_attraction4= models.CharField('Attraction 4', blank=True, max_length=50)
+	v_attraction5= models.CharField('Attraction 5', blank=True, max_length=50)
+	v_review= models.TextField('Village Review', blank=True, )
 	v_added=models.DateTimeField('Date added', auto_now=True)
 	v_updated=models.DateTimeField('Last updated', auto_now_add=True)
 	REGION_CHOICES=(('greater_accra', 'Greater Accra'), ('northern', 'Northern'), ('brong_ahafo', 'Brong Ahafo'),
@@ -48,7 +48,7 @@ class MyVillage(models.Model):
 	v_region= models.CharField(max_length=60, choices=REGION_CHOICES)
 	def __unicode__(self):
 		return self.v_name
-
+	
 
 class ReviewInline(admin.TabularInline):
         model = Review
@@ -61,4 +61,5 @@ class TouristSiteAdmin(admin.ModelAdmin):
 
 
 admin.site.register(TouristSite, TouristSiteAdmin)
+admin.site.register(MyVillage)
 

@@ -1,0 +1,58 @@
+def region_list(request, limit=15):
+	region_list=TouristSite.objects.all()
+	northern= TouristSite(region='Northern')
+	western = TouristSite(region='Western')
+	uer = TouristSite(region='Upper East Region')
+	uwr = TouristSite(region='Upper West Region')
+	central = TouristSite(region='Central')
+	eastern = TouristSite(region='Eastern')
+	ga = TouristSite(region='Greater Accra')
+	ashanti = TouristSite(region='Ashanti')
+	ba = TouristSite(region='Brong Ahafo')
+	volta = TouristSite(region='Volta Region')
+	
+	t = loader.get_template('i-kijiji/selectsite.html')
+	c = Context({'region_list':region_list,'user':str(request.user), 'northern':northern, 'western':western, 'uer':uer, 'uwr':uwr, 'central':central, 'eastern':eastern, 'western':western,
+	'ga':ga, 'ashanti':ashanti, 'ba':ba, 'volta':volta})
+	return HttpResponse(t.render(c))
+
+
+def northern_list(request, limit=15):
+	northern_list=TouristSite.objects.filter(region='northern').order_by('-last_modified')
+	return render_to_response('i-kijiji/northern.html', {'northern_list': northern_list})
+
+def uer_list(request, limit=15):
+	uer_list=TouristSite.objects.filter(region='upper_east').order_by('-last_modified')
+	return render_to_response('i-kijiji/uer.html', {'uer_list': uer_list})
+
+def uwr_list(request, limit=15):
+	uwr_list=TouristSite.objects.filter(region='upper_west').order_by('-last_modified')
+	return render_to_response('i-kijiji/uwr.html', {'uwr_list': uwr_list})
+
+def volta_list(request, limit=15):
+	volta_list=TouristSite.objects.filter(region='volta').order_by('-last_modified')
+	return render_to_response('i-kijiji/volta.html', {'volta_list': volta_list})
+
+def central_list(request, limit=15):
+	central_list=TouristSite.objects.filter(region='central').order_by('-last_modified')
+	return render_to_response('i-kijiji/central.html', {'central_list': central_list})
+
+def ga_list(request, limit=15):
+	ga_list=TouristSite.objects.filter(region='greater_accra').order_by('-last_modified')
+	return render_to_response('i-kijiji/ga.html', {'ga_list': ga_list})
+
+def ba_list(request, limit=15):
+	ba_list=TouristSite.objects.filter(region='brong_ahafo').order_by('-last_modified')
+	return render_to_response('i-kijiji/ba.html', {'ba_list': ba_list})
+
+def eastern_list(request, limit=15):
+	eastern_list=TouristSite.objects.filter(region='eastern').order_by('-last_modified')
+	return render_to_response('i-kijiji/eastern.html', {'eastern_list': eastern_list})
+
+def western_list(request, limit=15):
+	western_list=TouristSite.objects.filter(region='western').order_by('-last_modified')
+	return render_to_response('i-kijiji/western.html', {'western_list': western_list})
+
+def ashanti_list(request, limit=15):
+	ashanti_list=TouristSite.objects.filter(region='ashanti').order_by('-last_modified')
+	return render_to_response('i-kijiji/ashanti.html', {'ashanti_list': ashanti_list})

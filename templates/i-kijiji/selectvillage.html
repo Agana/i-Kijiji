@@ -1,0 +1,23 @@
+{% extends "i-kijiji/index.html" %}
+<div class="header">Hi there</div>
+<p>Hi there!</p>
+
+{% block content %}
+
+<a href="/i-kijiji/v_ashanti"><ul>{{ ashanti.get_v_region_display }}</ul></a>
+<a href="/i-kijiji/v_ba"><ul>{{ ba.get_v_region_display }}</ul></a>
+<a href="/i-kijiji/v_eastern"><ul>{{ eastern.get_v_region_display }}</ul></a>
+<a href="/i-kijiji/v_ga"><ul>{{ ga.get_v_region_display }}</ul></a>
+<a href="/i-kijiji/v_northern"><ul>{{ northern.get_v_region_display }}</ul></a>
+<a href="/i-kijiji/v_uer"><ul>{{ uer.get_v_region_display }}</ul></a>
+<a href="/i-kijiji/v_uwr"><ul>{{ uwr.get_v_region_display }}</ul></a>
+<a href="/i-kijiji/v_volta"><ul>{{ volta.get_v_region_display }}</ul></a>
+<a href="/i-kijiji/v_western"><ul>{{ western.get_v_region_display }}</ul></a>
+<a href="/i-kijiji/v_central"><ul>{{ central.get_v_region_display }}</ul></a>
+
+
+
+{% endblock %}
+</p>
+</body>
+</html>
