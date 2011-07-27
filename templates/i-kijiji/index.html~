@@ -1,12 +1,21 @@
 <html>
 <head>
-<title>Tourist Sites</title>
+<title>i-Kijiji - Your village on the Web!</title>
 <link rel="stylesheet" type="text/css" href="/static/style.css" />
+<meta name="viewport" content="initial-scale=1, minimum-scale=1, maximum-scale=1, width=device-width"/>
+<meta name="HandheldFriendly" content="True"/>
+<meta name="MobileOptimized" content="240"/>
 </head>
 <body>
+<div id="page">
+
+<div id="header">i-Kijiji</div>
+<div id="body"></div>
 {% block content %}
 
 
 {% endblock %}
+<div id="footer">All rights reserved. 2011</div>
+</div>
 </body>
 </html>

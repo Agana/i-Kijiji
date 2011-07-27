@@ -118,6 +118,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'i-kijiji',
     'django.contrib.admin',
+    'countries',
     # Uncomment the next line to enable the admin:
     # 'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:

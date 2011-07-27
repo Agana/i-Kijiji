@@ -58,7 +58,7 @@
 }
 
 #titlebar {
-    background: url("/static/titlebar.png") repeat scroll 0 -559px transparent;
+    background: url("/static/titlebar.png") repeat -x scroll 0 -559px transparent;
     height: 42px;
     position: relative;
     text-align: center;
