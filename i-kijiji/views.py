@@ -239,7 +239,7 @@ def my_village(request, limit=15):
 		if form.is_valid():
 			form.save()
 			#MyDonate.objects.create(first_name='first_name',last_name='last_name', country='country', state='state', city='city', phone='0244', confirm_code='confirm_code')
-			return render_to_response('i-kijiji/allvillages.html', {'request':request, 'village_myform':village_myform})  
+			return render_to_response('i-kijiji/selectvillage.html', {'request':request, 'village_myform':village_myform})  
 	else:
 		form = VillageForm()
 	 

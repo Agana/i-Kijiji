@@ -1,0 +1,34 @@
+{% extends "i-kijiji/index.html" %}
+ {% block content %}
+
+<!-- Load FB JavaScript SDK -->
+<div id="fb-root"></div>
+      <script src="http://connect.facebook.net/en_US/all.js"></script>
+      <script>
+         FB.init({ 
+            appId:'131672516919597', cookie:true, 
+            status:true, xfbml:true 
+         });
+      </script>
+
+<!-- Load FB Registration -->
+
+   <div id="fb-root"></div>
+      <script src="http://connect.facebook.net/en_US/all.js">
+      </script>
+      <script>
+         FB.init({ 
+            appId:'131672516919597', cookie:true, 
+            status:true, xfbml:true 
+         });
+      </script>
+         <fb:registration
+            fields="[{'name':'name'}, {'name':'email'},
+            {'name':'favorite_car','description':'What is your favorite car?',
+            'type':'text'}]" redirect-uri="http://localhost:8000/i-kijiji/selectsite/">
+    </fb:registration>
+
+<form method='post' action="">
+{{ form }}
+<input type='submit' name='Review' value='Register'>
+{% endblock %}
