@@ -263,7 +263,7 @@ class TouristSite(models.Model):
 
 class Review(models.Model):
 	review_title = models.ForeignKey('TouristSite')
-	review_body= models.TextField()
+	review_body= models.TextField('')
 	review_author= models.CharField(max_length=60)
 	review_created= models.DateTimeField(auto_now=True)
 	review_updated= models.DateTimeField(auto_now_add=True)
@@ -288,6 +288,9 @@ class MyVillage(models.Model):
 	('central', 'Central'), ('upper_east', 'Upper East'),
 	('upper_west','Upper West'),('ashanti', 'Ashanti'),('volta','Volta'),('western', 'Western'),('eastern', 'Eastern'))
 	v_region= models.CharField(max_length=60, choices=REGION_CHOICES)
+	village_image = models.ImageField('Upload images', blank=True, upload_to='static')
+	village_image_2 = models.ImageField('', blank=True, upload_to='static')
+	village_image_3 = models.ImageField('', blank=True, upload_to='static')
 	
 	COUNTRIES = (
     ('AFG', ('Afghanistan')), 
@@ -532,7 +535,12 @@ class MyVillage(models.Model):
 	country = models.CharField(max_length=60, choices=COUNTRIES)
 	def __unicode__(self):
 		return self.v_name
-	
+	def render_image(self):
+		return self.village_image.url
+	def render_image_2(self):
+		return self.village_image_2.url
+	def render_image_3(self):
+		return self.village_image_3.url
 
 class ReviewInline(admin.TabularInline):
         model = Review

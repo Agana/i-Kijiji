@@ -7,15 +7,14 @@
 <meta name="MobileOptimized" content="240"/>
 </head>
 <body>
-<div id="page">
-
-<div id="header">i-Kijiji</div>
-<div id="body"></div>
+<table id="page" border="1">
+<tr>
+<div id="header" class="full">i-Kijiji</div></tr>
+<tr>
+<div id="body">
 {% block content %}
-
-
 {% endblock %}
-<div id="footer">All rights reserved. 2011</div>
-</div>
-</body>
+</div></tr>
+<tr><div id="footer">All rights reserved. 2011</div></tr>
+</table></body>
 </html>

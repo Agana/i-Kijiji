@@ -1,24 +1,45 @@
 {% extends "i-kijiji/index.html" %}
 {% block content %}
 
-<p><h2 id="titlebar">Welcome to i-Kijiji</h2></p>
-<p>Your village on the web.</p>
-<a href ="/users/login">Login</a> or <a href="/accounts/register">Register</a><p>
-<a href ="/i-kijiji/myvillage">Submit your village</a>
-<p><table border="1" align="center">
-<tr>
-<td><ul>
-<p>{{ my_village.v_name }}</p>
-<p>{{ my_village.get_v_region_display }}</p>
-<p>{{ my_village.nearto }}</p>
-<p>{{ my_village.v_updated }}</p>
-</ul></td>
-<td width="450" height="400">
-<div id="map" align ="center"><iframe width="425" height="350" frameborder="1" scrolling="no" marginheight="0" marginwidth="0" src="http://maps.google.com/maps?q=ghana&amp;hq=ghana&amp;output=embed"></iframe><br /><small><a href="http://maps.google.com/maps?f=q&amp;source=embed&amp;hl=en&amp;q=ghana&amp;&amp;hq=ghana&amp;style="color:#0000FF;text-align:left"><p>View Larger Map</p></a></small>
+<!--<h2 id="titlebar">Welcome to i-Kijiji <br>Your village on the web</h2>-->
+
+<div id="banner" align ="center" class="gmap">
 </div>
-</td>
-</tr>
-</table></p>
+
+<table border="0" class="menubar"><tr><div align="center">
+<td class="menuitem">Home</td>
+<td class="menuitem">Villages</td>
+<td class="menuitem">Villagers</td>
+<td class="menuitem">Reviews</td>
+<td class="menuitem">Must Visit</td>
+</div></tr>
+</table>
+<table class="contenttable" border="1">
+<tr>
+<td class="contentflank">
+<p><a href ="/users/login">Login</a> or <a href="/accounts/register">Register</a></p>
+<p><a href ="/i-kijiji/myvillage">Submit your village</a></p>
 <a href ="/i-kijiji/selectvillage"><p>Go to Villages</p></a>
 <a href ="/i-kijiji/selectsite"><p>See Attractions</p></a>
+
+</td>
+<td class="flash">
+<div id="map" align ="center"><iframe class="gmap" frameborder="1" scrolling="no" marginheight="0" marginwidth="0" src="http://maps.google.com/maps?q=ghana&amp;hq=ghana&amp;output=embed"></iframe><br /><small><a href="http://maps.google.com/maps?f=q&amp;source=embed&amp;hl=en&amp;q=ghana&amp;&amp;hq=ghana&amp;style="
+color:#0000FF;text-align:left></a></small></div>
+</td>
+<td class="contentflank">
+<p>i-Kijiji is the largest online community of villagers in the world.</p>
+<input class="joinusbutton" type="submit" value="JOIN NOW"/><p>&nbsp</p><p align="center">OR</p>
+<p align="center"><a href ="/users/login">Sign in</a></p></td></tr>
+
+</table>
+
+{% for village in village_detail %}
+<ul>
+<p>{{ village_detail.v_name }}</p>
+<p>{{ village_detail.get_v_region_display }}</p>
+<p>{{ village_detail.v_nearto }}</p>
+<p>{{ village_detail.v_updated }}</p>
+</ul>
+{% endfor %}
 {% endblock %}

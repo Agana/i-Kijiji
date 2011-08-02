@@ -7,7 +7,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponseRedirect
 from django.shortcuts import render_to_response
 from django.core.mail import send_mail
-
+from django.core.files.uploadedfile import SimpleUploadedFile
 
 def site_list(request, limit=15):
 	site_list=TouristSite.objects.all()
@@ -156,7 +156,7 @@ def register(request, limit=15):
 	return render_to_response('i-kijiji/register.html')
 
 def welcome(request, limit=15):
-	#login=TouristSite.objects.filter(region='ashanti').order_by('-last_modified')
+	
 	return render_to_response('i-kijiji/welcome.html')
 
 
@@ -169,7 +169,7 @@ class SiteForm(ModelForm):
 		print review
 		return self.fields
 
-class VillageForm(ModelForm):
+class UploadedFileForm(ModelForm):
 	class Meta:
 		model=MyVillage
 	def village_form(self):
@@ -178,7 +178,7 @@ class VillageForm(ModelForm):
 def site_detail(request, id, showReviews=False):
 	site_detail=TouristSite.objects.get(id=id)
 	site_detail_iterable=TouristSite.objects.filter(id=id)
-	review_items=Review.objects.filter(review_title__id=id).order_by('-review_updated')
+	review_items=Review.objects.filter(review_title__id=id).order_by('-review_updated')[:3]
 	if showReviews:
 		
 		reviews = Review.objects.filter(review_title__id=id)
@@ -235,13 +235,13 @@ def village_detail(request, id, showReviews=False):
 def my_village(request, limit=15):
 	village_myform= MyVillage.objects.all().order_by('-v_updated')
 	if request.method == 'POST':
-		form = VillageForm(request.POST)
+		form = UploadedFileForm(request.POST, request.FILES)
 		if form.is_valid():
 			form.save()
 			#MyDonate.objects.create(first_name='first_name',last_name='last_name', country='country', state='state', city='city', phone='0244', confirm_code='confirm_code')
 			return render_to_response('i-kijiji/selectvillage.html', {'request':request, 'village_myform':village_myform})  
 	else:
-		form = VillageForm()
+		form = UploadedFileForm()
 	 
 	return render_to_response('i-kijiji/myvillage.html', {'form': form.as_p(), 'request':request, 'village_myform':village_myform})
 
